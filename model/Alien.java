@@ -1,4 +1,6 @@
-package model;
+/**
+ * @author Qassem Ahmad
+ */
 
 public abstract class Alien {
 

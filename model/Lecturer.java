@@ -1,7 +1,10 @@
-package model;
+
 
 import java.io.Serializable;
 
+/**
+ * @author Qassem Ahmad
+ */
 public class Lecturer implements Serializable {
 
     // Bitte serialVersionUID beibehalten, damit die Klasse bei der
