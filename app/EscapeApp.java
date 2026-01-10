@@ -1,4 +1,4 @@
-
+package app;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +17,7 @@ public class EscapeApp {
 
     public static final String SAVE_FILE_NAME = "save";
     private EscapeGame game;
-    private boolean gameRunning = true;
+    private static boolean gameRunning = true;
 
 /**
  * Startet die Anwendung und führt die Menü aus.
@@ -29,11 +29,16 @@ public class EscapeApp {
         System.out.println("========================================\n");
 
         EscapeApp app = new EscapeApp();
+        app.runApp();
 
-        while (true) {
-            app.showMainMenu();
-            String choice = app.readUserInput();
-            app.handleUserInput(choice);
+        System.out.println("Thank you for playing. Goodbye!");
+    }
+
+    private void runApp() {
+        while (gameRunning) {
+            showMainMenu();
+            String choice = readUserInput();
+            handleUserInput(choice);
             System.out.println("====================");
         }
     }
@@ -45,6 +50,17 @@ public class EscapeApp {
         System.out.println("You're in the main menu");
         System.out.println("What do you want to do next?");
         System.out.println("(1) Start new game");
+
+        if (game != null && !game.isGameFinished()) {
+            System.out.println("(2) Spiel fortsetzen");
+            System.out.println("(4) Spiel speichern");
+        }
+
+        if (hasSavedGame()) {
+            System.out.println("(3) Spiel laden");
+            System.out.println("(5) Spiel löschen");
+        }
+
         System.out.println("(6) Quit");
         System.out.println("");
         System.out.println("Please choose a number between 1 and 6: ");
@@ -73,9 +89,39 @@ public class EscapeApp {
                 this.startGame();
                 break;
             case "2":
+                if (game != null && !game.isGameFinished()) {
+                    resumeGame();
+                } else {
+                    System.out.println("Invalid input. Please choose a correct number between 1 and 6");
+                }
                 break;
-            // ...
+            case "3":
+                if (hasSavedGame()) {
+                    loadGame();
+                } else {
+                    System.out.println("Invalid input. Please choose a correct number between 1 and 6");
+                }
+                break;
+            
+            case "4":
+                if (game != null && !game.isGameFinished()) {
+                    saveGame();
+                } else {
+                    System.out.println("Invalid input.");
+                }
+                break;
+
+
+            case "5":
+                if (hasSavedGame()) {
+                    deleteGame();
+                } else {
+                    System.out.println("Invalid input.");
+                }
+                break;
+
             case "6":
+                gameRunning = false;
                 break;
             default:
                 System.out.println("Invalid input. Please choose a correct number between 1 and 6");
