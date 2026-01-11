@@ -53,11 +53,15 @@ public class EscapeApp {
 
         if (game != null && !game.isGameFinished()) {
             System.out.println("(2) Spiel fortsetzen");
-            System.out.println("(4) Spiel speichern");
         }
-
         if (hasSavedGame()) {
             System.out.println("(3) Spiel laden");
+            }
+
+        if (game != null && !game.isGameFinished()) {
+                System.out.println("(4) Spiel speichern");
+        }
+        if (hasSavedGame()) {
             System.out.println("(5) Spiel löschen");
         }
 

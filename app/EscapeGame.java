@@ -1,7 +1,6 @@
 package app;
-
-import model.Hero;
 import model.HTWRoom;
+import model.Hero;
 /**
  * Spezifikation der relevanten Objekten für das Escape Spiel.
  * Diese Klasse steuert das Spiel und kontrolliert den Zustand des Spiels.
