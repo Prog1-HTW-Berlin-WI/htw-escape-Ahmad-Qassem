@@ -32,14 +32,7 @@ public class Hero implements Serializable {
         return name;
     }
 
-    public void takeDamage(int amount) {
-        if (healthPoints > 0) {
-            healthPoints -= amount;
-            if (healthPoints < 0) {
-                healthPoints = 0;
-            }
-        }
-    }
+    
 
     public void increaseGameRound() {
         this.gameRound = Math.min(24, gameRound + 1);  
@@ -67,10 +60,7 @@ public class Hero implements Serializable {
         this.experiencePoints += points;
         return this.experiencePoints;
     }
-    public int addExperiencePoints(int points) {
-        this.experiencePoints += points;
-        return this.experiencePoints;
-    }
+    
 
     public void regenerate (boolean longRest) { //longrest ist noch nicht implementiert
         if (!longRest) {
