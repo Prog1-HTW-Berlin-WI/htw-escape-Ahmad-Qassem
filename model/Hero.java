@@ -10,16 +10,18 @@ public class Hero implements Serializable {
     // Speicherung als Datei (Serialisierung) und beim Laden (Deserialisierung)
     // konsistent bleibt und Versionierungsprobleme vermieden werden.
     private static final long serialVersionUID = 3578735620108186013L;
-
+    private static final int MAX_HP = 50;
     private String name;
-    private int healthPoints = 50;
-    private int experiencePoints = 0;
-    private final Lecturer[] signedExerciseLeaders = new Lecturer[5];
-
-    public Hero() {
-
+    private int healthPoints;
+    private int experiencePoints;
+    private Lecturer[] signedExerciseLeaders;
+    
+    public Hero(String name) {
+        this.name = name;
+        this.healthPoints = MAX_HP;
+        this.experiencePoints = 0;
+        this.signedExerciseLeaders = new Lecturer[5];
     }
-
     public void setName(String name) {
         this.name = name;
     }

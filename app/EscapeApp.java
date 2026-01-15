@@ -1,5 +1,6 @@
 package app;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,7 +18,7 @@ public class EscapeApp {
 
     public static final String SAVE_FILE_NAME = "save";
     private EscapeGame game;
-    private static boolean gameRunning = true;
+    private static boolean appRunning = true;
 
 /**
  * Startet die Anwendung und führt die Menü aus.
@@ -35,7 +36,7 @@ public class EscapeApp {
     }
 
     private void runApp() {
-        while (gameRunning) {
+        while (appRunning) {
             showMainMenu();
             String choice = readUserInput();
             handleUserInput(choice);
@@ -125,7 +126,7 @@ public class EscapeApp {
                 break;
 
             case "6":
-                gameRunning = false;
+                appRunning = false;
                 break;
             default:
                 System.out.println("Invalid input. Please choose a correct number between 1 and 6");
