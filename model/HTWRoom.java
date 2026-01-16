@@ -47,7 +47,6 @@ public class HTWRoom implements Serializable {
     public Lecturer getLecturer() {
         return lecturer;
     }
- //Brauchen wir das wirklich?
     /**
      * Setzt den Lecturer in Raum.
      *

@@ -6,6 +6,7 @@ import java.io.Serializable;
  */
 public class Hero implements Serializable {
 
+    //private static final int Lecturer = 5;
     // Bitte serialVersionUID beibehalten, damit die Klasse bei der
     // Speicherung als Datei (Serialisierung) und beim Laden (Deserialisierung)
     // konsistent bleibt und Versionierungsprobleme vermieden werden.
@@ -32,7 +33,9 @@ public class Hero implements Serializable {
         return name;
     }
 
-    
+    public int getHealthPoints() {
+        return healthPoints;
+    }
 
     public void increaseGameRound() {
         this.gameRound = Math.min(24, gameRound + 1);  
