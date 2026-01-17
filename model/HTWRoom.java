@@ -13,6 +13,7 @@ public class HTWRoom implements Serializable {
     private final String identifier;
     private final String description;
     private Lecturer lecturer;
+    private final boolean visited;
 
     /**
      * Erstellt einen neuen Raum.
@@ -25,6 +26,7 @@ public class HTWRoom implements Serializable {
         this.identifier = identifier;
         this.description = description;
         this.lecturer = lecturer;
+        this.visited = false;
     }
 
     /**
@@ -60,6 +62,15 @@ public class HTWRoom implements Serializable {
      */
     public boolean hasLecturer() {
         return lecturer != null;
+    }
+    public boolean lecturerHasSigned() {
+        return lecturer.hasSigned() == true;
+    }
+    public boolean getVisited() {
+        return visited;
+    }
+    public boolean beenVisited() {
+        return !visited;
     }
 
 }

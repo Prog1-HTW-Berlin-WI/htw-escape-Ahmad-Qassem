@@ -59,9 +59,8 @@ public class Hero implements Serializable {
         return experiencePoints;
     }
 
-    public int addExperiencePoints(int points) {
+    public void addExperiencePoints(int points) {
         this.experiencePoints += points;
-        return this.experiencePoints;
     }
     
 

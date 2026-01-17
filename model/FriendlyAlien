@@ -14,3 +14,4 @@ public class FriendlyAlien extends Alien {
         return 0;
     }
 }
+
