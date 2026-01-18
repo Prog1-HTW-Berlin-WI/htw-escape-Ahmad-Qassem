@@ -15,7 +15,7 @@ import model.HostileAlien;
 public class EscapeGame {
     private final Hero hero;
     private Lecturer[] lecturer = new Lecturer[6];
-    private final HTWRoom[] rooms = new HTWRoom[12];
+    private final HTWRoom[] rooms = new HTWRoom[20];
     private boolean gameRunning = true;
     private boolean gameFinished = false;
     private FriendlyAlien friendly = new FriendlyAlien();
@@ -29,10 +29,10 @@ public class EscapeGame {
         this.hero = hero;
         this.lecturer[0] = new Lecturer("Fr.");
         this.lecturer[1] = new Lecturer("Fr.");
-        this.lecturer[2] = new Lecturer("Fr.");
-        this.lecturer[3] = new Lecturer("Fr.");
+        this.lecturer[2] = new Lecturer("Herr.");
+        this.lecturer[3] = new Lecturer("Herr.");
         this.lecturer[4] = new Lecturer("Fr.");
-        this.lecturer[5] = new Lecturer("Fr.");
+        this.lecturer[5] = new Lecturer("Fr. Dr. Majunke");
         this.rooms[0] = new HTWRoom("A000","dies und das",lecturer[0]);
         this.rooms[1] = new HTWRoom("A000","dies und das",lecturer[1]);
         this.rooms[2] = new HTWRoom("A000","dies und das",lecturer[2]);
@@ -45,6 +45,14 @@ public class EscapeGame {
         this.rooms[9] = new HTWRoom("A000","dies und das",null);
         this.rooms[10] = new HTWRoom("A000","dies und das",null);
         this.rooms[11] = new HTWRoom("A000","dies und das",null);
+        this.rooms[12] = new HTWRoom("A000","dies und das",null);
+        this.rooms[13] = new HTWRoom("A000","dies und das",null);
+        this.rooms[14] = new HTWRoom("A000","dies und das",null);
+        this.rooms[15] = new HTWRoom("A000","dies und das",null);
+        this.rooms[16] = new HTWRoom("A000","dies und das",null);
+        this.rooms[17] = new HTWRoom("A000","dies und das",null);
+        this.rooms[18] = new HTWRoom("A000","dies und das",null);
+        this.rooms[19] = new HTWRoom("A000","dies und das",null);
     }
 /**
  * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
@@ -137,7 +145,6 @@ public class EscapeGame {
 
     private void htwErkunden() {
 
-        hero.increaseGameRound();
         double chance = Math.random();
  
         if (chance < 0.2) {
@@ -146,26 +153,39 @@ public class EscapeGame {
                     System.out.println("Du betritts " + rooms[i]);
                     System.out.println("Die Ruhe macht dich unruhig, aber du muss weiter erkunden...");
                     rooms[i].beenVisited();
+                    hero.increaseGameRound();
                     return;
-                }
+                } 
             }
            
         }
         else if (chance < 0.52) {
-            System.out.println("Ein lebendes Wesen!");
-            if (friendly.isFriendly()){
-                
-                System.out.println("Es scheint friedlich zu sein" + friendly);
-            }
-            else if (hostile.isFriendly()){
-                 System.out.println("Es scheint aggresive zu sein" + hostile);
+            for (int i = 6; i < rooms.length; i++){
+
+                if (rooms[i].getVisited() == false) {
+                    System.out.println("Ein lebendes Wesen!");
+
+                    if (Math.random() < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
+                        System.out.println("Es scheint friedlich zu sein" + friendly);
+                    }
+                      
+                    else if (Math.random() < 0.6){    
+                        System.out.println("Es scheint aggresive zu sein" + hostile);
+                    }
+
+                    rooms[i].beenVisited();
+                    hero.increaseGameRound();
+                    return;
+                } 
             }
         }
         else {  for (int i = 4; i >= 0; i--){
-                if (rooms[i].hasLecturer() && !rooms[i].lecturerHasSigned()) { // erste Bedingung kann weg.
-                    
+
+                if (!rooms[i].lecturerHasSigned()) { 
                     System.out.println("Du betritts " + rooms[i]);
-                    System.out.println("");
+                    System.out.println("Dozent/in ist bereit zu unterschreiben");
+                    hero.increaseGameRound();
+                    rooms[i].makeLecturerSign();
                     return;
                 }
             }

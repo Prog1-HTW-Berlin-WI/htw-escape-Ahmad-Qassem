@@ -91,7 +91,7 @@ public class Hero implements Serializable {
     public void signExerciseLeader (Lecturer lecturer) {
         if (lecturer.hasSigned() == false) {
             for (int i = 0; i < 5; i++) {
-                if(signedExerciseLeaders[i] == null) {  // Array muss null zeigen wenn leer. noch zu implementieren
+                if(signedExerciseLeaders[i] == null) {  
                     signedExerciseLeaders[i] = lecturer;
                     lecturer.sign();
                     return;

@@ -49,6 +49,10 @@ public class HTWRoom implements Serializable {
     public Lecturer getLecturer() {
         return lecturer;
     }
+
+    public void makeLecturerSign() {
+        lecturer.sign();
+    }
     /**
      * Setzt den Lecturer in Raum.
      *
