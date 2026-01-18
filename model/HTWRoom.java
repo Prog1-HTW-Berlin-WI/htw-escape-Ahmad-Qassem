@@ -46,8 +46,8 @@ public class HTWRoom implements Serializable {
     /**
      * @return Der Lecturer, der im Raum ist oder null, wenn keiner
      */
-    public Lecturer getLecturer() {
-        return lecturer;
+    public String getLecturer() {
+        return lecturer.getName();
     }
 
     public void makeLecturerSign() {

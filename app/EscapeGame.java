@@ -1,10 +1,9 @@
 package app;
-import model.Hero;
-import model.Lecturer;
-import model.Alien;
-import model.HTWRoom;
 import model.FriendlyAlien;
+import model.HTWRoom;
+import model.Hero;
 import model.HostileAlien;
+import model.Lecturer;
 
 /**
  * Spezifikation der relevanten Objekten für das Escape Spiel.
@@ -106,13 +105,13 @@ public class EscapeGame {
         System.out.println("(3) Laufzettel anzeigen");
         System.out.println("(4) Verschnaufpause machen");
         System.out.println("(5) Spiel verlassen");
-        System.out.print("Bitte Zahl zwischen 1 und 5eingeben: ");
+        System.out.print("Bitte Zahl zwischen 1 und 5 eingeben: ");
     }
 
     private void handleGameMenuInput(String input) {
         switch (input) {
             case "1":
-                this.htwErkunden();
+                htwErkunden();
                 System.out.println("XXX");
                 break;
             case "2":
@@ -146,12 +145,17 @@ public class EscapeGame {
     private void htwErkunden() {
 
         double chance = Math.random();
+        double alienTyp = Math.random();
  
         if (chance < 0.2) {
             for (int i = 6; i < rooms.length; i++){
                 if (rooms[i].getVisited() == false) {
-                    System.out.println("Du betritts " + rooms[i]);
+                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
+                    System.out.println();
+                    System.out.println("Der Raum ist leer.");
+                    System.out.println();
                     System.out.println("Die Ruhe macht dich unruhig, aber du muss weiter erkunden...");
+                    System.out.println();
                     rooms[i].beenVisited();
                     hero.increaseGameRound();
                     return;
@@ -163,32 +167,65 @@ public class EscapeGame {
             for (int i = 6; i < rooms.length; i++){
 
                 if (rooms[i].getVisited() == false) {
+                    System.out.println();
+                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
+                    System.out.println();
                     System.out.println("Ein lebendes Wesen!");
+                    System.out.println();
 
-                    if (Math.random() < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
-                        System.out.println("Es scheint friedlich zu sein" + friendly);
+                    if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
+                        
+                        System.out.println("Es scheint friedlich zu sein ");
+                        System.out.println();
+                        System.out.println(friendly.getName() + ": " + friendly.getGreeting());
                     }
                       
-                    else if (Math.random() < 0.6){    
-                        System.out.println("Es scheint aggresive zu sein" + hostile);
+                    else {    
+                        
+                        System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
+                        System.out.println();
+                        System.out.println(hostile.getName() + ": " + hostile.getGreeting());
+                        System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
+                        System.out.println();
                     }
 
-                    rooms[i].beenVisited();
-                    hero.increaseGameRound();
-                    return;
+                rooms[i].beenVisited();
+                hero.increaseGameRound();
+                return;
                 } 
             }
         }
         else {  for (int i = 4; i >= 0; i--){
 
                 if (!rooms[i].lecturerHasSigned()) { 
-                    System.out.println("Du betritts " + rooms[i]);
-                    System.out.println("Dozent/in ist bereit zu unterschreiben");
+                    System.out.println();
+                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
+                    System.out.println();
+                    System.out.println(rooms[i].getLecturer() + " ist bereit zu unterschreiben");
+                    System.out.println();
                     hero.increaseGameRound();
                     rooms[i].makeLecturerSign();
                     return;
                 }
             }
+            System.out.println();
+            System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
+            System.out.println();
+            System.out.println("Ein Alien sieht dich und kommt auf dich zu!");
+            System.out.println();
+            if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
+                        System.out.println("Es scheint friedlich zu sein ");
+                        System.out.println();
+                        System.out.println(friendly.getName() + ": " + friendly.getGreeting());
+                    }
+                      
+                    else {    
+                        System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
+                        System.out.println();
+                        System.out.println(hostile.getName() + ": " + hostile.getGreeting());
+                        System.out.println();
+                        System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
+                    }
         }
     }
 }

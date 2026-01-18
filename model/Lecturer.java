@@ -12,7 +12,7 @@ public class Lecturer implements Serializable {
     // konsistent bleibt und Versionierungsprobleme vermieden werden.
     private static final long serialVersionUID = 540082607047283589L;
     private final String name;
-    private boolean hasSigned;
+    private boolean hasSigned = false;
 
     /**
      * Erstellt einen neuen Lecturer
@@ -21,7 +21,7 @@ public class Lecturer implements Serializable {
      */
     public Lecturer(String name) {
         this.name = name;
-        this.hasSigned = false;
+        
     }
 
     /**
