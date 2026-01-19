@@ -13,7 +13,7 @@ public class HTWRoom implements Serializable {
     private final String identifier;
     private final String description;
     private Lecturer lecturer;
-    private final boolean visited;
+    private boolean visited;
 
     /**
      * Erstellt einen neuen Raum.
@@ -73,8 +73,8 @@ public class HTWRoom implements Serializable {
     public boolean getVisited() {
         return visited;
     }
-    public boolean beenVisited() {
-        return !visited;
+    public void beenVisited() {
+        this.visited = true;
     }
 
 }
