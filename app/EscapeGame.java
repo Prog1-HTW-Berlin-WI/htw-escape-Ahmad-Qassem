@@ -26,32 +26,32 @@ public class EscapeGame {
      */
     public EscapeGame(Hero hero) {
         this.hero = hero;
-        this.lecturer[0] = new Lecturer("Fr.");
-        this.lecturer[1] = new Lecturer("Fr.");
-        this.lecturer[2] = new Lecturer("Herr.");
-        this.lecturer[3] = new Lecturer("Herr.");
-        this.lecturer[4] = new Lecturer("Fr.");
+        this.lecturer[0] = new Lecturer("Fr. Safitri");
+        this.lecturer[1] = new Lecturer("Fr. Vaseva");
+        this.lecturer[2] = new Lecturer("Herr. Poeser");
+        this.lecturer[3] = new Lecturer("Herr. Gnaoui");
+        this.lecturer[4] = new Lecturer("Fr. Gärtner");
         this.lecturer[5] = new Lecturer("Fr. Dr. Majunke");
-        this.rooms[0] = new HTWRoom("A000","dies und das",lecturer[0]);
-        this.rooms[1] = new HTWRoom("A000","dies und das",lecturer[1]);
-        this.rooms[2] = new HTWRoom("A000","dies und das",lecturer[2]);
-        this.rooms[3] = new HTWRoom("A000","dies und das",lecturer[3]);
-        this.rooms[4] = new HTWRoom("A000","dies und das",lecturer[4]);
-        this.rooms[5] = new HTWRoom("A000","dies und das",lecturer[5]);
-        this.rooms[6] = new HTWRoom("A000","dies und das",null);
-        this.rooms[7] = new HTWRoom("A000","dies und das",null);
-        this.rooms[8] = new HTWRoom("A000","dies und das",null);
-        this.rooms[9] = new HTWRoom("A000","dies und das",null);
-        this.rooms[10] = new HTWRoom("A000","dies und das",null);
-        this.rooms[11] = new HTWRoom("A000","dies und das",null);
-        this.rooms[12] = new HTWRoom("A000","dies und das",null);
-        this.rooms[13] = new HTWRoom("A000","dies und das",null);
-        this.rooms[14] = new HTWRoom("A000","dies und das",null);
-        this.rooms[15] = new HTWRoom("A000","dies und das",null);
-        this.rooms[16] = new HTWRoom("A000","dies und das",null);
-        this.rooms[17] = new HTWRoom("A000","dies und das",null);
-        this.rooms[18] = new HTWRoom("A000","dies und das",null);
-        this.rooms[19] = new HTWRoom("A000","dies und das",null);
+        this.rooms[0] = new HTWRoom("A002","Seminarraum",lecturer[0]);
+        this.rooms[1] = new HTWRoom("A003","Seminarraum",lecturer[1]);
+        this.rooms[2] = new HTWRoom("A008","Büroraum",lecturer[2]);
+        this.rooms[3] = new HTWRoom("A009","Büroraum",lecturer[3]);
+        this.rooms[4] = new HTWRoom("A013","Medienunt.Unterrichtsraum",lecturer[4]);
+        this.rooms[5] = new HTWRoom("A014","Büroraum",lecturer[5]);
+        this.rooms[6] = new HTWRoom("A015","Seminarraum",null);
+        this.rooms[7] = new HTWRoom("A114","Mehrzweckunterrichtsraum",null);
+        this.rooms[8] = new HTWRoom("A115","Mehrzweckunterrichtsraum",null);
+        this.rooms[9] = new HTWRoom("A118","Seminarraum",null);
+        this.rooms[10] = new HTWRoom("A119","Seminarraum",null);
+        this.rooms[11] = new HTWRoom("A126","Technisches Labor",null);
+        this.rooms[12] = new HTWRoom("A127","Seminarraum",null);
+        this.rooms[13] = new HTWRoom("A128","Seminarraum",null);
+        this.rooms[14] = new HTWRoom("A208","Hör-/Lehrsaal",null);
+        this.rooms[15] = new HTWRoom("A211","Büroraum",null);
+        this.rooms[16] = new HTWRoom("A212","Büroraum",null);
+        this.rooms[17] = new HTWRoom("A215","Übungsraum",null);
+        this.rooms[18] = new HTWRoom("A226","Mehrzweckunterrichtsraum",null);
+        this.rooms[19] = new HTWRoom("A238","Hör-/Lehrsaal ansteigend",null);
     }
 /**
  * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
