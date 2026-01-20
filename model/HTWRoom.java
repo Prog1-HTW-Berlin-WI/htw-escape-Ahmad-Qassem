@@ -12,7 +12,7 @@ public class HTWRoom implements Serializable {
     private static final long serialVersionUID = 9065680017147292999L;
     private final String identifier;
     private final String description;
-    private Lecturer lecturer;
+    public Lecturer lecturer;
     private boolean visited;
 
     /**
@@ -46,13 +46,13 @@ public class HTWRoom implements Serializable {
     /**
      * @return Der Lecturer, der im Raum ist oder null, wenn keiner
      */
-    public String getLecturer() {
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+    public String getLecturerName() {
         return lecturer.getName();
     }
 
-    public void makeLecturerSign() {
-        lecturer.sign();
-    }
     /**
      * Setzt den Lecturer in Raum.
      *
@@ -68,9 +68,9 @@ public class HTWRoom implements Serializable {
         return lecturer != null;
     }
     public boolean lecturerHasSigned() {
-        return lecturer.hasSigned() == true;
+        return lecturer.hasSigned();
     }
-    public boolean getVisited() {
+    public boolean gotVisited() {
         return visited;
     }
     public void beenVisited() {

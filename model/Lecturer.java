@@ -21,6 +21,7 @@ public class Lecturer implements Serializable {
      */
     public Lecturer(String name) {
         this.name = name;
+         
         
     }
 
@@ -35,7 +36,7 @@ public class Lecturer implements Serializable {
      * @return true, wenn bereits unterschrieben
      */
     public boolean hasSigned() {
-        return hasSigned;
+        return hasSigned == true;
     }
 
     /**
@@ -45,7 +46,7 @@ public class Lecturer implements Serializable {
      * @return true, wenn unterschreiben möglich ist
      */
     public boolean isReadyToSign() {
-        return !hasSigned;
+        return hasSigned == false;
     }
 
     /**

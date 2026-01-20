@@ -120,7 +120,9 @@ public class EscapeGame {
                 System.out.println("Erfahrungspunkte: " + hero.getExperiencePoints());
                 break;
             case "3":
-                System.out.println("XXX");
+                System.out.println("Laufzettel:");
+                System.out.println();
+                hero.getLaufzettel();
                 break;
             case "4":
                 System.out.println("XXX");
@@ -149,7 +151,7 @@ public class EscapeGame {
  
         if (chance < 0.2) {
             for (int i = 6; i < rooms.length; i++){
-                if (rooms[i].getVisited() == false) {
+                if (rooms[i].gotVisited() == false) {
                     System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
                     System.out.println();
                     System.out.println("Der Raum ist leer.");
@@ -166,7 +168,7 @@ public class EscapeGame {
         else if (chance < 0.52) {
             for (int i = 6; i < rooms.length; i++){
 
-                if (rooms[i].getVisited() == false) {
+                if (rooms[i].gotVisited() == false) {
                     System.out.println();
                     System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
                     System.out.println();
@@ -196,15 +198,16 @@ public class EscapeGame {
             }
         }
         else {  for (int i = 4; i >= 0; i--){
-
                 if (!rooms[i].lecturerHasSigned()) { 
                     System.out.println();
                     System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
                     System.out.println();
-                    System.out.println(rooms[i].getLecturer() + " ist bereit zu unterschreiben");
+                    System.out.println(rooms[i].getLecturerName() + " ist bereit zu unterschreiben");
                     System.out.println();
                     hero.increaseGameRound();
-                    rooms[i].makeLecturerSign();
+                    //rooms[i].makeLecturerSign(); //Methode existierte schon innerhalb Hero.java;
+                    Lecturer roomLecturer = rooms[i].getLecturer();
+                    hero.signExerciseLeader(roomLecturer);
                     return;
                 }
             }

@@ -25,6 +25,7 @@ public class Hero implements Serializable {
         this.signedExerciseLeaders = new Lecturer[5];
         this.gameRound = 1;
     }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -89,15 +90,27 @@ public class Hero implements Serializable {
     }
     
     public void signExerciseLeader (Lecturer lecturer) {
-        if (lecturer.hasSigned() == false) {
+        //if (lecturer.hasSigned() == false) { die Bedingung existiert jetzt in Escapegame.htwErkunden()
             for (int i = 0; i < 5; i++) {
-                if(signedExerciseLeaders[i] == null) {  
+                if(signedExerciseLeaders[i] == null && lecturer.isReadyToSign()) {  
                     signedExerciseLeaders[i] = lecturer;
                     lecturer.sign();
                     return;
                 }
-            }
+            //}
         }
+    }
+    public void getLaufzettel() {
+     int fehlendeUnterschriften = 5;
+        for (Lecturer i : signedExerciseLeaders) {
+            if(i != null) {  
+                    System.out.println("# " + i.getName());
+                    fehlendeUnterschriften -= 1;
+            }   
+                
+        }
+     System.out.println();
+     System.out.println("Um Professorin Majuntke finden zu können, brauchst du noch: " + fehlendeUnterschriften + " Unterschriften");
     }
 
 }
