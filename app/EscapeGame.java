@@ -156,39 +156,39 @@ public class EscapeGame {
 
     String choice = EscapeApp.readUserInput();
 
-    if ("1".equals(choice)) {
-        if (smallRestUsedThisRound) {
-            System.out.println("Du hast in dieser Runde bereits eine kleine Verschnaufpause genutzt.");
+    switch (choice) {
+        case "1":
+            if (smallRestUsedThisRound) {
+                System.out.println("Du hast in dieser Runde bereits eine kleine Verschnaufpause genutzt.");
+                return;
+            }
+            int beforeSmall = hero.getHealthPoints();
+            hero.regenerate(false);
+            int afterSmall = hero.getHealthPoints();
+            smallRestUsedThisRound = true;
+            System.out.println("Lebenspunkte: " + beforeSmall + " -> " + afterSmall);
+            return;
+
+        case "2":
+            int beforeBig = hero.getHealthPoints();
+            hero.regenerate(true);
+            int afterBig = hero.getHealthPoints();
+            System.out.println("Lebenspunkte: " + beforeBig + " -> " + afterBig);
+            hero.increaseGameRound();
+            return;
+
+        case "3":
+            System.out.println("Keine Verschnaufpause gemacht.");
+            return;
+
+        default:
+            System.out.println("Unzulaessige Eingabe.");
             return;
         }
-
-        int before = hero.getHealthPoints();
-        hero.regenerate(false);
-        int after = hero.getHealthPoints();
-        smallRestUsedThisRound = true;
-
-        System.out.println("Lebenspunkte: " + before + " -> " + after);
-        return;
     }
 
-    if ("2".equals(choice)) {
-        int before = hero.getHealthPoints();
-        hero.regenerate(true);
-        int after = hero.getHealthPoints();
 
-        System.out.println("Lebenspunkte: " + before + " -> " + after);
 
-        hero.increaseGameRound();
-        return;
-    }
-
-    if ("3".equals(choice)) {
-        System.out.println("Keine Verschnaufpause gemacht.");
-        return;
-    }
-
-    System.out.println("Unzulaessige Eingabe.");
-}
 
     private void htwErkunden() {
 
