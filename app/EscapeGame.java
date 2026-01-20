@@ -19,6 +19,7 @@ public class EscapeGame {
     private boolean gameFinished = false;
     private FriendlyAlien friendly = new FriendlyAlien();
     private HostileAlien hostile = new HostileAlien();
+    private boolean smallRestUsedThisRound;
   
 
     /**
@@ -52,6 +53,7 @@ public class EscapeGame {
         this.rooms[17] = new HTWRoom("A215","Übungsraum",null);
         this.rooms[18] = new HTWRoom("A226","Mehrzweckunterrichtsraum",null);
         this.rooms[19] = new HTWRoom("A238","Hör-/Lehrsaal ansteigend",null);
+        this.smallRestUsedThisRound = false;
     }
 /**
  * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
@@ -123,6 +125,7 @@ public class EscapeGame {
                 System.out.println("XXX");
                 break;
             case "4":
+                doRest();
                 System.out.println("XXX");
                 break;
             case "5":
@@ -134,6 +137,7 @@ public class EscapeGame {
                 break;
         }
     }
+    
 /**
  * liest den Wert von Hero.
  * @return gibt den Wert zurück.
@@ -141,6 +145,50 @@ public class EscapeGame {
     public Hero getHero() {
         return hero;
     }
+
+    private void doRest() {
+    System.out.println();
+    System.out.println("Verschnaufpause");
+    System.out.println("(1) Kleine Verschnaufpause (+3 LP, einmal pro Runde)");
+    System.out.println("(2) Grosse Verschnaufpause (+10 LP, kostet eine Runde)");
+    System.out.println("(3) Abbrechen");
+    System.out.print("Bitte Zahl zwischen 1 und 3 eingeben: ");
+
+    String choice = EscapeApp.readUserInput();
+
+    if ("1".equals(choice)) {
+        if (smallRestUsedThisRound) {
+            System.out.println("Du hast in dieser Runde bereits eine kleine Verschnaufpause genutzt.");
+            return;
+        }
+
+        int before = hero.getHealthPoints();
+        hero.regenerate(false);
+        int after = hero.getHealthPoints();
+        smallRestUsedThisRound = true;
+
+        System.out.println("Lebenspunkte: " + before + " -> " + after);
+        return;
+    }
+
+    if ("2".equals(choice)) {
+        int before = hero.getHealthPoints();
+        hero.regenerate(true);
+        int after = hero.getHealthPoints();
+
+        System.out.println("Lebenspunkte: " + before + " -> " + after);
+
+        hero.increaseGameRound();
+        return;
+    }
+
+    if ("3".equals(choice)) {
+        System.out.println("Keine Verschnaufpause gemacht.");
+        return;
+    }
+
+    System.out.println("Unzulaessige Eingabe.");
+}
 
     private void htwErkunden() {
 
