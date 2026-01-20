@@ -120,6 +120,7 @@ public class EscapeGame {
                 System.out.println("Name: " + hero.getName());
                 System.out.println("Lebenspunkte: " + hero.getHealthPoints());
                 System.out.println("Erfahrungspunkte: " + hero.getExperiencePoints());
+                System.out.println("Gameround: " + hero.getGameRound() + "/24");
                 break;
             case "3":
                 System.out.println("Laufzettel:");
@@ -176,7 +177,7 @@ public class EscapeGame {
             hero.regenerate(true);
             int afterBig = hero.getHealthPoints();
             System.out.println("Lebenspunkte: " + beforeBig + " -> " + afterBig);
-            hero.increaseGameRound();
+            //hero.increaseGameRound(); die Methode regenerate() macht das schon.
             return;
 
         case "3":
@@ -185,7 +186,7 @@ public class EscapeGame {
 
         default:
             System.out.println("Unzulaessige Eingabe.");
-            return;
+            //return; bricht nach defaut direkt ab.
         }
     }
 

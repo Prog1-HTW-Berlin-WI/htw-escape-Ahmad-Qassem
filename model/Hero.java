@@ -111,6 +111,9 @@ public class Hero implements Serializable {
         }
      System.out.println();
      System.out.println("Um Professorin Majuntke finden zu können, brauchst du noch: " + fehlendeUnterschriften + " Unterschriften");
+     if (fehlendeUnterschriften == 0) { 
+        System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
+     }
     }
 
 }
