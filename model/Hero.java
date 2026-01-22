@@ -33,6 +33,10 @@ public class Hero implements Serializable {
     public String getName() {
         return name;
     }
+    public int getDamage() {
+        double damage = experiencePoints * 2.3 + 1;
+        return (int) damage;
+    }
 
     public int getHealthPoints() {
         return healthPoints;
@@ -49,6 +53,7 @@ public class Hero implements Serializable {
     public void takeDamage(int amount) {
         if (healthPoints > 0) {
             this.healthPoints = Math.max(0, healthPoints - amount);
+            System.out.println(name + " erleidet " + amount + " Schaden. Restliche LP: " + healthPoints);
             }
     }
 
@@ -65,7 +70,7 @@ public class Hero implements Serializable {
     }
     
 
-    public void regenerate (boolean longRest) { //longrest ist noch nicht implementiert
+    public void regenerate (boolean longRest) { 
         if (!longRest) {
             this.healthPoints = Math.min(50, healthPoints + 3);
         }

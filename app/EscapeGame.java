@@ -108,18 +108,20 @@ public class EscapeGame {
         System.out.println("(4) Verschnaufpause machen");
         System.out.println("(5) Spiel verlassen");
         System.out.print("Bitte Zahl zwischen 1 und 5 eingeben: ");
+        System.out.println();
     }
 
     private void handleGameMenuInput(String input) {
         switch (input) {
             case "1":
                 htwErkunden();
-                System.out.println("XXX");
+                System.out.println();
                 break;
             case "2":
                 System.out.println("Name: " + hero.getName());
                 System.out.println("Lebenspunkte: " + hero.getHealthPoints());
                 System.out.println("Erfahrungspunkte: " + hero.getExperiencePoints());
+                System.out.println("Basicdamage: " + hero.getDamage());
                 System.out.println("Gameround: " + hero.getGameRound() + "/24");
                 break;
             case "3":
@@ -129,7 +131,7 @@ public class EscapeGame {
                 break;
             case "4":
                 doRest();
-                System.out.println("XXX");
+                System.out.println();
                 break;
             case "5":
                 System.out.println("Zurueck ins Hauptmenu.");
@@ -137,6 +139,7 @@ public class EscapeGame {
                 break;
             default:
                 System.out.println("Unzulaessige Eingabe. Bitte 1 bis 5 eingeben.");
+                System.out.println();
                 break;
         }
     }
@@ -156,6 +159,7 @@ public class EscapeGame {
     System.out.println("(2) Grosse Verschnaufpause (+10 LP, kostet eine Runde)");
     System.out.println("(3) Abbrechen");
     System.out.print("Bitte Zahl zwischen 1 und 3 eingeben: ");
+    System.out.println();
 
     String choice = EscapeApp.readUserInput();
 
@@ -186,6 +190,7 @@ public class EscapeGame {
 
         default:
             System.out.println("Unzulaessige Eingabe.");
+            System.out.println();
             //return; bricht nach defaut direkt ab.
         }
     }
@@ -194,90 +199,163 @@ public class EscapeGame {
 
 
     private void htwErkunden() {
-
-        double chance = Math.random();
-        double alienTyp = Math.random();
+        if(hero.getGameRound() < 24 && hero.isOperational()){
+            hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
+            double chance = Math.random();
+            double alienTyp = Math.random();
  
-        if (chance < 0.2) {
-            for (int i = 6; i < rooms.length; i++){
-                if (rooms[i].gotVisited() == false) {
-                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
-                    System.out.println();
-                    System.out.println("Der Raum ist leer.");
-                    System.out.println();
-                    System.out.println("Die Ruhe macht dich unruhig, aber du muss weiter erkunden...");
-                    System.out.println();
-                    rooms[i].beenVisited();
-                    hero.increaseGameRound();
-                    return;
-                } 
-            }
+            if (chance < 0.2) {
+                for (int i = 6; i < rooms.length; i++){
+                    if (rooms[i].gotVisited() == false) {
+                        System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
+                        System.out.println();
+                        System.out.println("Der Raum ist leer.");
+                        System.out.println();
+                        System.out.println("Die Ruhe macht dich unruhig, aber du muss weiter erkunden...");
+                        System.out.println();
+                        rooms[i].beenVisited();
+                        return;
+                    } 
+                }
            
-        }
-        else if (chance < 0.52) {
-            for (int i = 6; i < rooms.length; i++){
-
-                if (rooms[i].gotVisited() == false) {
-                    System.out.println();
-                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
-                    System.out.println();
-                    System.out.println("Ein lebendes Wesen!");
-                    System.out.println();
-
-                    if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
-                        
-                        System.out.println("Es scheint friedlich zu sein ");
-                        System.out.println();
-                        System.out.println(friendly.getName() + ": " + friendly.getGreeting());
-                    }
-                      
-                    else {    
-                        
-                        System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
-                        System.out.println();
-                        System.out.println(hostile.getName() + ": " + hostile.getGreeting());
-                        System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
-                        System.out.println();
-                    }
-
-                rooms[i].beenVisited();
-                hero.increaseGameRound();
-                return;
-                } 
             }
-        }
-        else {  for (int i = 4; i >= 0; i--){
-                if (!rooms[i].lecturerHasSigned()) { 
-                    System.out.println();
-                    System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
-                    System.out.println();
-                    System.out.println(rooms[i].getLecturerName() + " ist bereit zu unterschreiben");
-                    System.out.println();
-                    hero.increaseGameRound();
-                    //rooms[i].makeLecturerSign(); //Methode existierte schon innerhalb Hero.java;
-                    Lecturer roomLecturer = rooms[i].getLecturer();
-                    hero.signExerciseLeader(roomLecturer);
-                    return;
+            else if (chance < 0.52) {
+                for (int i = 6; i < rooms.length; i++){
+
+                    if (rooms[i].gotVisited() == false) {
+                        System.out.println();
+                        System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
+                        System.out.println();
+                        System.out.println("Ein lebendes Wesen!");
+                        System.out.println();
+
+                        if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
+                        
+                            System.out.println("Es scheint friedlich zu sein ");
+                            System.out.println();
+                            System.out.println(friendly.getName() + ": " + friendly.getGreeting());
+                        }
+                      
+                        else if (!hostile.isDefeated()) {    
+                        
+                            System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
+                            System.out.println();
+                            System.out.println(hostile.getName() + ": " + hostile.getGreeting());
+                            System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
+                            System.out.println();
+                            fightOrFlee();
+                        }
+
+                        rooms[i].beenVisited();
+                        return;
+                    } 
                 }
             }
-            System.out.println();
-            System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
-            System.out.println();
-            System.out.println("Ein Alien sieht dich und kommt auf dich zu!");
-            System.out.println();
-            if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
-                        System.out.println("Es scheint friedlich zu sein ");
+            else {  for (int i = 4; i >= 0; i--){
+                    if (!rooms[i].lecturerHasSigned()) { 
                         System.out.println();
-                        System.out.println(friendly.getName() + ": " + friendly.getGreeting());
+                        System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription());
+                        System.out.println();
+                        System.out.println(rooms[i].getLecturerName() + " ist bereit zu unterschreiben");
+                        System.out.println();
+                        //rooms[i].makeLecturerSign(); //Methode existierte schon innerhalb Hero.java;
+                        Lecturer roomLecturer = rooms[i].getLecturer();
+                        hero.signExerciseLeader(roomLecturer);
+                        return;
                     }
+                }
+                    System.out.println();
+                    System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
+                    System.out.println();
+                    System.out.println("Ein Alien sieht dich und kommt auf dich zu!");
+                    System.out.println();
+                        if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
+                            System.out.println("Es scheint friedlich zu sein ");
+                            System.out.println();
+                            System.out.println(friendly.getName() + ": " + friendly.getGreeting());
+                        }
                       
-                    else {    
-                        System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
-                        System.out.println();
-                        System.out.println(hostile.getName() + ": " + hostile.getGreeting());
-                        System.out.println();
-                        System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
-                    }
+                        else if (!hostile.isDefeated()){    
+                            System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
+                            System.out.println();
+                            System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
+                            System.out.println();
+                            System.out.println(hostile.getName() + ": " + hostile.getGreeting());
+                            fightOrFlee();
+                        }
+            }
         }
+        else if(!hero.isOperational()){
+            System.out.println("Dein Hero braucht Verschnaufpause");
+        }
+        else {
+            System.out.println("GAME OVER!"); 
+        }
+    }
+
+    private void fightOrFlee() {
+        System.out.println();
+        System.out.println("Du muss entscheiden. Kämpfen oder Fliehen?");
+        System.out.println("Your HP: " + hero.getHealthPoints() + " - Basicdamage: " + hero.getDamage());
+        System.out.println();
+        System.out.println(" 1) Kämpfen");
+        System.out.println(" 2) Fliehen");
+
+        String choice = EscapeApp.readUserInput();
+
+        switch (choice) {
+            case "1":
+                while (hero.isOperational() && !hostile.isDefeated()) {
+                    int heroDamage = hero.attack();
+                    int alienDamage = hostile.attack();
+                    hostile.takeDamage(heroDamage);
+                    System.out.println();
+                    hero.takeDamage(alienDamage);
+                    System.out.println();
+                    System.out.println();
+                    }
+                if (hostile.isDefeated()) {
+                        hero.addExperiencePoints(5);
+                        System.out.println("## GLÜCKWUNSCH! Du hast den Alien besiegt! Du bekommst: 5 XP" );
+                        System.out.println();
+                        System.out.println("Your HP: " + hero.getHealthPoints() + " - Basicdamage: " + hero.getDamage());
+                }   else if (!hero.isOperational()) { hero.addExperiencePoints(1); //soweit keine Konsequenzen für healthpoints=0
+                        System.out.println("## Der Alien hat dich zwar überwältigt, stärker bist du trotzdem geworden! Du bekommst: 1 XP" );
+                        System.out.println();
+                        System.out.println("Your HP: " + hero.getHealthPoints() + " - Basicdamage: " + hero.getDamage());
+                    }
+                        return;
+            case "2":
+                if (hero.flee()) {
+                    System.out.println(" Der Flucht ist gelungen! ");
+                    System.out.println();
+                }   else { System.out.println(" Der Alien ist zu schnell! ");
+                        while (hero.isOperational() && !hostile.isDefeated()) {
+                            int heroDamage = hero.attack();
+                            int alienDamage = hostile.attack();
+                            hero.takeDamage(alienDamage);
+                            System.out.println();
+                            hostile.takeDamage(heroDamage);
+                            System.out.println();
+                            System.out.println();
+                        }
+                    }
+                if (hostile.isDefeated()) {
+                        hero.addExperiencePoints(5);
+                        System.out.println("## GLÜCKWUNSCH! Du hast den Alien besiegt! Du bekommst: 5 XP" );
+                        System.out.println();
+                        System.out.println("Your HP: " + hero.getHealthPoints() + " - Basicdamage: " + hero.getDamage());
+                }   else if (!hero.isOperational()) { hero.addExperiencePoints(1); //soweit keine Konsequenzen für healthpoints=0
+                        System.out.println("## Der Alien hat dich zwar überwältigt, stärker bist du trotzdem geworden! Du bekommst: 1 XP" );
+                        System.out.println();
+                        System.out.println("Your HP: " + hero.getHealthPoints() + " - Basicdamage: " + hero.getDamage());
+                    }
+                        return;
+            default:
+                System.out.println("Unzulässige Eingabe");
+                System.out.println();
+                
+        }
+
     }
 }
