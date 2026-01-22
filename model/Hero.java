@@ -88,7 +88,7 @@ public class Hero implements Serializable {
         double wahrscheinlichkeit = Math.random(); // damit die Wahrscheinlichkeiten sich nicht überlappen.
         if (wahrscheinlichkeit < 0.13 ) {
             grundSchaden *= 0;
-        } else if (wahrscheinlichkeit < 0.12) {
+        } else if (wahrscheinlichkeit < 0.12) { //muss hier nicht 0.25 sonst bekommen wir doch kenie Krits
             grundSchaden *= 2;
         }
         return (int) grundSchaden;
@@ -105,6 +105,7 @@ public class Hero implements Serializable {
             //}
         }
     }
+
     public void getLaufzettel() {
      int fehlendeUnterschriften = 5;
         for (Lecturer i : signedExerciseLeaders) {
@@ -121,6 +122,13 @@ public class Hero implements Serializable {
      }
     }
 
-    
+    public boolean hasAllSignatures() {
+    for (int i = 0; i < signedExerciseLeaders.length; i++) {
+        if (signedExerciseLeaders[i] == null) {
+            return false;
+        }
+        }
+    return true;
+    }
 
 }

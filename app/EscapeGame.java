@@ -20,6 +20,9 @@ public class EscapeGame {
     private FriendlyAlien friendly = new FriendlyAlien();
     private HostileAlien hostile = new HostileAlien();
     private boolean smallRestUsedThisRound;
+    private final String[] majuntkeQuestions = new String[3];
+    private final String[][] majuntkeAnswers = new String[3][4];
+    private final int[] majuntkeCorrectAnswer = new int[3];
   
 
     /**
@@ -59,6 +62,8 @@ public class EscapeGame {
         this.rooms[23] = new HTWRoom("A231","Mehrzwecksunterrichtsraum",null);
 
         this.smallRestUsedThisRound = false;
+        
+        initMajuntkeQuestions();
     }
 /**
  * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
@@ -208,6 +213,10 @@ public class EscapeGame {
             hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
             double chance = Math.random();
             double alienTyp = Math.random();
+        if (hero.getGameRound() == 24) {
+            loseBecauseTimeIsUp();
+            return;
+        }
  
             if (chance < 0.2) {
                 for (int i = 6; i < rooms.length; i++){
@@ -270,7 +279,7 @@ public class EscapeGame {
                     }
                 }
                     System.out.println();
-                    System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
+                    System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Prof. Majunke besuchen ###");
                     System.out.println();
                     visitMajunke();
             }
@@ -362,17 +371,92 @@ public class EscapeGame {
         System.out.println("Professorin Majuntke stellt dir eine Frage");
         System.out.println();
 
+        boolean firstTryCorrect = askRandomMajuntkeQuestion();
+        if (firstTryCorrect) {
+            winGame();
+            return;
+        }
+
+
         System.out.println();
         System.out.println("Falsch! du bekommst noch eine Chance:");
         System.out.println();
 
-
+        boolean secondTryCorrect = askRandomMajuntkeQuestion();
+        if (secondTryCorrect) {
+            winGame();
+            return;
+        }
 
         System.out.println();
         System.out.println("Auch die zweite Antwort ist falsch! Leider hast du keine weiteren Chancen mehr.");
         System.out.print("Professorin Majuntke fliegt davon und sagt: \"Bis zum nächsten Semester.\"");
         gameFinished = true;
         gameRunning = false;
+    }
+
+    private boolean askRandomMajuntkeQuestion() {
+        int index = (int) (Math.random() * 3);
+        return askMajuntkeQuestion(index);
+    }
+
+    private boolean askMajuntkeQuestion(int index) {
+        System.out.println(majuntkeQuestions[index]);
+        System.out.println();
+
+        for (int i = 0; i < 4; i++) {
+            System.out.println((i + 1) + ") " + majuntkeAnswers[index][i]);
+        }
+
+        int choice = readChoice1To4();
+        if (choice == majuntkeCorrectAnswer[index]) {
+            System.out.println();
+            System.out.println("Korrekt!");
+            return true;
+        }
+
+        System.out.println();
+        System.out.println("Falsch!");
+        return false;
+    }
+
+    private int readChoice1To4() {
+    while (true) {
+        System.out.print("Deine Antwort (1-4): ");
+        String input = EscapeApp.readUserInput();
+
+        switch (input) {
+            case "1": return 1;
+            case "2": return 2;
+            case "3": return 3;
+            case "4": return 4;
+            default:
+                System.out.println("Bitte gib 1, 2, 3 oder 4 ein.");
+        }
+    }
+}
+
+    private void initMajuntkeQuestions() {
+        majuntkeQuestions[0] = "Welche Kontrollstruktur nutzt man, um Code mehrfach auszuführen?";
+        majuntkeAnswers[0][0] = "if";
+        majuntkeAnswers[0][1] = "for";
+        majuntkeAnswers[0][2] = "class";
+        majuntkeAnswers[0][3] = "import";
+        majuntkeCorrectAnswer[0] = 2;
+
+        majuntkeQuestions[1] = "Welcher Datentyp speichert Wahr oder Falsch?";
+        majuntkeAnswers[1][0] = "boolean";
+        majuntkeAnswers[1][1] = "int";
+        majuntkeAnswers[1][2] = "char";
+        majuntkeAnswers[1][3] = "double";
+        majuntkeCorrectAnswer[1] = 1;
+
+        majuntkeQuestions[2] = "Welcher Operator vergleicht zwei int Werte auf Gleichheit?";
+        majuntkeAnswers[2][0] = "=";
+        majuntkeAnswers[2][1] = "==";
+        majuntkeAnswers[2][2] = "equals()";
+        majuntkeAnswers[2][3] = "===";
+        majuntkeCorrectAnswer[2] = 2;
     }
 
 
@@ -386,7 +470,7 @@ public class EscapeGame {
 
     private void loseBecauseTimeIsUp() {
         System.out.println("Die Zeit ist abgelaufen! Du hast es nicht geschafft, rechtzeitig zu entkommen.");
-        System.out.println("Professorin Majuntke fliegt davon. Was mit dir passiert, bleibt ungewiss...");
+        System.out.println("Professorin Majuntke fliegt davon. Was mit der HTW passiert, bleibt ungewiss...");
         System.out.println("GAME OVER!");
         gameFinished = true;
         gameRunning = false;

@@ -6,7 +6,7 @@ package model;
 public class HostileAlien extends Alien {
 
     public HostileAlien() {
-        super("Raumschiff Jaeger", 20, false, "Das Alien faucht und geht auf dich los.");
+        super("Raumschiff Jaeger", 12, false, "Das Alien faucht und geht auf dich los.");
     }
 
     @Override
