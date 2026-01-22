@@ -14,7 +14,7 @@ import model.Lecturer;
 public class EscapeGame {
     private final Hero hero;
     private Lecturer[] lecturer = new Lecturer[6];
-    private final HTWRoom[] rooms = new HTWRoom[20];
+    private final HTWRoom[] rooms = new HTWRoom[240];
     private boolean gameRunning = true;
     private boolean gameFinished = false;
     private FriendlyAlien friendly = new FriendlyAlien();
@@ -53,6 +53,11 @@ public class EscapeGame {
         this.rooms[17] = new HTWRoom("A215","Übungsraum",null);
         this.rooms[18] = new HTWRoom("A226","Mehrzweckunterrichtsraum",null);
         this.rooms[19] = new HTWRoom("A238","Hör-/Lehrsaal ansteigend",null);
+        this.rooms[20] = new HTWRoom("A239","Seminarraum",null);
+        this.rooms[21] = new HTWRoom("A240","Medienunt. Unterrichtsr.",null);
+        this.rooms[22] = new HTWRoom("A234","Mehrzwecksunterrichtsraum",null);
+        this.rooms[23] = new HTWRoom("A231","Mehrzwecksunterrichtsraum",null);
+
         this.smallRestUsedThisRound = false;
     }
 /**
@@ -267,22 +272,7 @@ public class EscapeGame {
                     System.out.println();
                     System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
                     System.out.println();
-                    System.out.println("Ein Alien sieht dich und kommt auf dich zu!");
-                    System.out.println();
-                        if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
-                            System.out.println("Es scheint friedlich zu sein ");
-                            System.out.println();
-                            System.out.println(friendly.getName() + ": " + friendly.getGreeting());
-                        }
-                      
-                        else if (!hostile.isDefeated()){    
-                            System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
-                            System.out.println();
-                            System.out.println(hostile.getName() + " has " + hostile.getLifePoints() + " HP");
-                            System.out.println();
-                            System.out.println(hostile.getName() + ": " + hostile.getGreeting());
-                            fightOrFlee();
-                        }
+                    visitMajunke();
             }
         }
         else if(!hero.isOperational()){
@@ -357,5 +347,48 @@ public class EscapeGame {
                 
         }
 
+    }
+
+    private void visitMajunke() {
+        
+        System.out.println("Du betrittst " + rooms[5].getIdentifier()+ ", " + rooms[5].getDescription());
+        System.out.println();
+        System.out.println("Professorin Dr. Majuntke ist hier, um deine Fortschritte zu überprüfen.");
+        System.out.println("Sie schaut sich deinen Laufzettel an und überprüft, ob du alle Unterschriften hast.");
+        System.out.println();
+        System.out.println("Professorin Majuntke sieht deinen Laufzettel an... und nickt zufrieden.");
+        System.out.println();
+        System.out.println("Professorin Majuntke: 'Herzlichen Glückwunsch! Nun musst du mir nur noch eine Frage beantworten, um zu entkommen.'");
+        System.out.println("Professorin Majuntke stellt dir eine Frage");
+        System.out.println();
+
+        System.out.println();
+        System.out.println("Falsch! du bekommst noch eine Chance:");
+        System.out.println();
+
+
+
+        System.out.println();
+        System.out.println("Auch die zweite Antwort ist falsch! Leider hast du keine weiteren Chancen mehr.");
+        System.out.print("Professorin Majuntke fliegt davon und sagt: \"Bis zum nächsten Semester.\"");
+        gameFinished = true;
+        gameRunning = false;
+    }
+
+
+    private void winGame() {
+        System.out.println("Herzlichen Glückwunsch! Du hast es geschafft, rechtzeitig zu entkommen.");
+        System.out.println("Professorin Majuntke ist beeindruckt von deinem Mut und deiner Entschlossenheit.");
+        System.out.println("Du hast das Escape Game erfolgreich abgeschlossen!");
+        gameFinished = true;
+        gameRunning = false;
+    }
+
+    private void loseBecauseTimeIsUp() {
+        System.out.println("Die Zeit ist abgelaufen! Du hast es nicht geschafft, rechtzeitig zu entkommen.");
+        System.out.println("Professorin Majuntke fliegt davon. Was mit dir passiert, bleibt ungewiss...");
+        System.out.println("GAME OVER!");
+        gameFinished = true;
+        gameRunning = false;
     }
 }
