@@ -14,7 +14,7 @@ import model.Lecturer;
 public class EscapeGame {
     private final Hero hero;
     private Lecturer[] lecturer = new Lecturer[6];
-    private final HTWRoom[] rooms = new HTWRoom[240];
+    private final HTWRoom[] rooms = new HTWRoom[24];
     private boolean gameRunning = true;
     private boolean gameFinished = false;
     private FriendlyAlien friendly = new FriendlyAlien();
