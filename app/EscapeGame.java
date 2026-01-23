@@ -210,10 +210,10 @@ public class EscapeGame {
 
 
     private void htwErkunden() {
-        if (hero.getGameRound() == 24) {
-            loseBecauseTimeIsUp();
-            return;
-        }
+        //if (hero.getGameRound() == 24) {
+            //loseBecauseTimeIsUp();
+            //return;
+        //}
         if(hero.getGameRound() < 24 && hero.isOperational()){
             hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
             smallRestUsedThisRound = false;
@@ -243,8 +243,11 @@ public class EscapeGame {
                         System.out.println();
                         System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
                         System.out.println();
-                        System.out.println("Ein lebendes Wesen!");
-                        System.out.println();
+                        if (!hostile.isDefeated()){ 
+                            System.out.println("Ein lebendes Wesen!");
+                        } else { System.out.println("Die Leiche von " + hostile.getName() + " ist noch da"); //wenn hostile tot ist
+                                System.out.println();
+                        }   
 
                         if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
                         
@@ -292,6 +295,7 @@ public class EscapeGame {
         }
         else {
             System.out.println("GAME OVER!"); 
+            loseBecauseTimeIsUp(); // damit Runde 24 spielbar bleibt
         }
     }
 
