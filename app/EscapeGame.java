@@ -107,7 +107,7 @@ public class EscapeGame {
             System.out.println("===================="); 
 
         }
-        System.out.println("The game has started. Or not?");
+        System.out.println("The game has started. Or not?"); //kann raus
     }
 
     private void showGameMenu() {
@@ -189,6 +189,7 @@ public class EscapeGame {
         case "2":
             int beforeBig = hero.getHealthPoints();
             hero.regenerate(true);
+            smallRestUsedThisRound = false; //weil in regenerate neue runde gezählt wird.
             int afterBig = hero.getHealthPoints();
             System.out.println("Lebenspunkte: " + beforeBig + " -> " + afterBig);
             //hero.increaseGameRound(); die Methode regenerate() macht das schon.
@@ -209,14 +210,16 @@ public class EscapeGame {
 
 
     private void htwErkunden() {
-        if(hero.getGameRound() < 24 && hero.isOperational()){
-            hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
-            double chance = Math.random();
-            double alienTyp = Math.random();
         if (hero.getGameRound() == 24) {
             loseBecauseTimeIsUp();
             return;
         }
+        if(hero.getGameRound() < 24 && hero.isOperational()){
+            hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
+            smallRestUsedThisRound = false;
+            double chance = Math.random();
+            double alienTyp = Math.random();
+        
  
             if (chance < 0.2) {
                 for (int i = 6; i < rooms.length; i++){
