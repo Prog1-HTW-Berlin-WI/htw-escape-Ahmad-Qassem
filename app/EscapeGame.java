@@ -28,7 +28,10 @@ public class EscapeGame implements Serializable {
   
 
     /**
-     * erstellt ein neues Held.
+     * Erstellt ein neues Spiel.
+     * Die Raeume und Dozentinnen und Dozenten werden direkt initialisiert.
+     *
+     * @param hero der Spielcharakter
      */
     public EscapeGame(Hero hero) {
         this.hero = hero;
