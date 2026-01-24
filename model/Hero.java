@@ -23,7 +23,7 @@ public class Hero implements Serializable {
         this.healthPoints = MAX_HP;
         this.experiencePoints = 0;
         this.signedExerciseLeaders = new Lecturer[5];
-        this.gameRound = 1;
+        this.gameRound = 0;
     }
     
     public void setName(String name) {
@@ -41,7 +41,10 @@ public class Hero implements Serializable {
     public int getHealthPoints() {
         return healthPoints;
     }
-
+    /**
+     * erhöht den Gameround +1 solange er nicht 24 ist.
+     * Math.min wählt den kleineren int aus den Klammern.
+     */
     public void increaseGameRound() {
         this.gameRound = Math.min(24, gameRound + 1);  
     }
@@ -49,7 +52,11 @@ public class Hero implements Serializable {
     public int getGameRound() {
         return gameRound;
     }
-
+    /**
+     * verringert die Lebenspunkte.
+     * Math.max wählt den grßeren int aus den Klammern.
+     * @param amount Wert der empfangenen Schaden
+     */
     public void takeDamage(int amount) {
         if (healthPoints > 0) {
             this.healthPoints = Math.max(0, healthPoints - amount);
@@ -64,12 +71,20 @@ public class Hero implements Serializable {
     public int getExperiencePoints() {
         return experiencePoints;
     }
-
+    /**
+     * erhöht die Erfahrungspunkte 
+     * @param points Wert der aufzusummierende Punkte 
+     */
     public void addExperiencePoints(int points) {
         this.experiencePoints += points;
     }
     
-
+    /**
+     * @param  longRest soll angeben um welcher Verschnaufpause handelt es. bei false werden die Lebenspunkte
+     * um +3 erhöht.
+     * bei true um +10 und Gameround wird mit der Methode um +1 erhöht.
+     * Math.min stellt sicher dass der int 50 nicht überschritten wird.
+     */
     public void regenerate (boolean longRest) { 
         if (!longRest) {
             this.healthPoints = Math.min(50, healthPoints + 3);
@@ -78,26 +93,40 @@ public class Hero implements Serializable {
         increaseGameRound();
         }
     }
-
+    /**
+     * prüft den Erfolg des Fluchtsversuchs des Heros.
+     * @return gibt wahr bei eine wahrscheinlichkeit von 42% zurück und somit gilt der Flucht gelungen.
+     * bei false ist der Flucht nicht gelungen 58%.
+     */
     public boolean flee() {
         return Math.random() < 0.42;
     }
-
+    /**
+     * rechnet den Angriffschaden des Heros.
+     * die Formel der Grundschaden ist der Wert des Doubles.
+     * bei einer wahrscheinlichkeit von 13% liegt der Schaden bei 0.
+     * bei einer Wahrscheinlichkeit von 12% doppelt sich der Schaden.
+     * @return gibt den umgewandelten int wert der Grundschaden zurück
+     */
     public int attack() {
         double grundSchaden = experiencePoints * 2.3 + 1;
-        double wahrscheinlichkeit = Math.random(); // damit die Wahrscheinlichkeiten sich nicht überlappen.
+        double wahrscheinlichkeit = Math.random(); 
         if (wahrscheinlichkeit < 0.13 ) {
             grundSchaden *= 0;
-        } else if (wahrscheinlichkeit < 0.12) { //muss hier nicht 0.25 sonst bekommen wir doch kenie Krits
+        } else if (wahrscheinlichkeit < 0.25) { 
             grundSchaden *= 2;
         }
         return (int) grundSchaden;
     }
-    
+    /**
+     * listet lecturer ,die unterschrieben haben, in  einem Array auf
+     * prüft wo die nächste freie Stelle im Array ist
+     * wenn lecturer noch nicht unterschrieben hat, wird lecturer eingetragen
+     * ändert den boolean von hasSigned auf true um
+     */
     public void signExerciseLeader (Lecturer lecturer) {
-        //if (lecturer.hasSigned() == false) { die Bedingung existiert jetzt in Escapegame.htwErkunden()
             for (int i = 0; i < 5; i++) {
-                if(signedExerciseLeaders[i] == null && lecturer.isReadyToSign()) {  
+                if(signedExerciseLeaders[i] == null && lecturer.isReadyToSign()) {  //isReadyToSign kann eig weg?
                     signedExerciseLeaders[i] = lecturer;
                     lecturer.sign();
                     return;
@@ -105,7 +134,12 @@ public class Hero implements Serializable {
             //}
         }
     }
-
+    /**
+     * ruft die list der lecturer, die unterschrieben haben, auf
+     * druckt den auf der Konsole aus
+     * rechnet die fehlenden Unterschriften
+     * druckt gesonderte Nachricht wenn alle Unterschriften gesammelt wurden
+     */
     public void getLaufzettel() {
      int fehlendeUnterschriften = 5;
         for (Lecturer i : signedExerciseLeaders) {
@@ -121,7 +155,11 @@ public class Hero implements Serializable {
         System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Dr. Majunke besuchen ###");
      }
     }
-
+    /**
+     * prüft ob alle lecturer unterschrieben haben
+     * sucht nach einem Element mit einem null Wert
+     * @return false wenn nicht alle lecturer unterschriebn haben. Ansonsten true.
+     */
     public boolean hasAllSignatures() {
     for (int i = 0; i < signedExerciseLeaders.length; i++) {
         if (signedExerciseLeaders[i] == null) {

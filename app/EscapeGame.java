@@ -1,4 +1,5 @@
 package app;
+import java.io.Serializable;
 import model.FriendlyAlien;
 import model.HTWRoom;
 import model.Hero;
@@ -11,14 +12,15 @@ import model.Lecturer;
  * @author Qassem Ahmad
  */
 
-public class EscapeGame {
+public class EscapeGame implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final Hero hero;
     private Lecturer[] lecturer = new Lecturer[6];
     private final HTWRoom[] rooms = new HTWRoom[24];
     private boolean gameRunning = true;
     private boolean gameFinished = false;
     private FriendlyAlien friendly = new FriendlyAlien();
-    private HostileAlien hostile = new HostileAlien();
+    private HostileAlien hostile;
     private boolean smallRestUsedThisRound;
     private final String[] majuntkeQuestions = new String[3];
     private final String[][] majuntkeAnswers = new String[3][4];
@@ -62,40 +64,40 @@ public class EscapeGame {
         this.rooms[23] = new HTWRoom("A231","Mehrzwecksunterrichtsraum",null);
 
         this.smallRestUsedThisRound = false;
-        
         initMajuntkeQuestions();
     }
-/**
- * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
- * @return Spielzustand
- */
+    /**
+    * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
+    * @return Spielzustand
+    */
     public boolean isGameRunning() {
         return gameRunning;
     }
-/**
- * lässt Spielzustand von außerhalb der Klasse ändern
- * @param gameRunning, gibt den neuen Spielzustand zurück.
- */
+    /**
+    * lässt Spielzustand von außerhalb der Klasse ändern
+     * @param gameRunning, gibt den neuen Spielzustand zurück.
+    */
     public void setGameRunning(boolean gameRunning) {
         this.gameRunning = gameRunning;
     }
-/**
- * lässt von außerhalb der Klasse feststellen, ob das Spiel beendet ist.
- * @return gibt den Spielendestatus zurück.
- */
+    /**
+    * lässt von außerhalb der Klasse feststellen, ob das Spiel beendet ist.
+    * @return gibt den Spielendestatus zurück.
+    */
     public boolean isGameFinished() {
         return gameFinished;
     }
-/**
- * lässt Spielendestatus von außerhalb der Klasse ändern.
- * @param gameFinished, aktualiesiert den Spielendestatus.
- */
+    /**
+    * lässt Spielendestatus von außerhalb der Klasse ändern.
+    * @param gameFinished, aktualiesiert den Spielendestatus.
+    */
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
-/**
- * gibt den Beginnstatus auf der Konsole aus.
- */
+    /**
+    * setzt gameRunning auf true und startet das Mainmenu
+    * gibt den Beginnstatus auf der Konsole aus.
+    */
     public void run() {
         gameRunning = true;
 
@@ -107,9 +109,11 @@ public class EscapeGame {
             System.out.println("===================="); 
 
         }
-        System.out.println("The game has started. Or not?"); //kann raus
+        System.out.println("The game has started."); //kann raus
     }
-
+    /**
+     * zeigt das Mainmenu auf der Konsole
+     */
     private void showGameMenu() {
         System.out.println("Spielmenu");
         System.out.println("(1) Hochschule erkunden");
@@ -120,7 +124,11 @@ public class EscapeGame {
         System.out.print("Bitte Zahl zwischen 1 und 5 eingeben: ");
         System.out.println();
     }
-
+    /**
+     * verarbeitet die Auswahl des Spielers
+     * @param input die Eingabe des Spielers im Scanner
+     * jenach Eingabe werden entsprechende Methoden und Ausgaben ausgeführt
+     */
     private void handleGameMenuInput(String input) {
         switch (input) {
             case "1":
@@ -154,14 +162,19 @@ public class EscapeGame {
         }
     }
     
-/**
- * liest den Wert von Hero.
- * @return gibt den Wert zurück.
- */
+    /**
+     * liest den Wert von Hero.
+    * @return gibt den Wert zurück.
+    */
     public Hero getHero() {
         return hero;
     }
-
+    /**
+     * Auswahl der Verschnaufpausen werden aufgelistet
+     * Scanner wird aufgerufen
+     * Eingabe des Scanners unter der Variable choice wird verarbeitet
+     * jenach Eingabe werden entsprechende Methoden und Ausgaben ausgeführt
+     */
     private void doRest() {
     System.out.println();
     System.out.println("Verschnaufpause");
@@ -202,23 +215,31 @@ public class EscapeGame {
         default:
             System.out.println("Unzulaessige Eingabe.");
             System.out.println();
-            //return; bricht nach defaut direkt ab.
+            
         }
     }
 
 
 
-
+    /**
+     * führt beliebige Ereignisse wenn Spieler das Campus erkunden will.
+     * wenn das Maximum Gameround 24 nicht überschritten ist und die Lebenspunkte des Hero über 0 sind. 
+     * 20% der Fälle passiert nichts. 
+     * 52% der Fälle trifft der Hero ein Alien (40% freundlich, 60% feindlich). 
+     * wenn feindlich kann der Hero zwischen Kämpfen oder Fliehen entscheiden. 
+     * 28% der Fälle trifft der Hero ein lecturer und sammelt dessen Unterschrift. 
+     * Wenn die Lebenspunkte bei 0, muss der Hero eine Verschnaufpause machen. 
+     * erreicht Hero die letzte Runde mit allen Unterschriften, wird ausnahweise die Methode visitMajunke ausgeführt. 
+     * ansonsten wird das Spiel beendet.
+     */
     private void htwErkunden() {
-        //if (hero.getGameRound() == 24) {
-            //loseBecauseTimeIsUp();
-            //return;
-        //}
+        hostile = new HostileAlien();
         if(hero.getGameRound() < 24 && hero.isOperational()){
             hero.increaseGameRound(); //hier einmal anstelle unten 3-4mal.
             smallRestUsedThisRound = false;
             double chance = Math.random();
             double alienTyp = Math.random();
+        
         
  
             if (chance < 0.2) {
@@ -236,28 +257,25 @@ public class EscapeGame {
                 }
            
             }
-            else if (chance < 0.52) {
+            else if (chance < 0.72) {
                 for (int i = 6; i < rooms.length; i++){
 
                     if (rooms[i].gotVisited() == false) {
                         System.out.println();
                         System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
-                        System.out.println();
-                        if (!hostile.isDefeated()){ 
-                            System.out.println("Ein lebendes Wesen!");
-                        } else { System.out.println("Die Leiche von " + hostile.getName() + " ist noch da"); //wenn hostile tot ist
-                                System.out.println();
-                        }   
+                        System.out.println();   
 
-                        if (alienTyp < 0.4) {       // Wahrscheinlichkeit beliebig festsetzen.
-                        
+                        if (alienTyp < 0.4) {       
+                            System.out.println("Ein lebendes Wesen!");
+                            System.out.println();
                             System.out.println("Es scheint friedlich zu sein ");
                             System.out.println();
                             System.out.println(friendly.getName() + ": " + friendly.getGreeting());
                         }
                       
                         else if (!hostile.isDefeated()) {    
-                        
+                            System.out.println("Ein lebendes Wesen!");
+                            System.out.println();
                             System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
                             System.out.println();
                             System.out.println(hostile.getName() + ": " + hostile.getGreeting());
@@ -265,7 +283,6 @@ public class EscapeGame {
                             System.out.println();
                             fightOrFlee();
                         }
-
                         rooms[i].beenVisited();
                         return;
                     } 
@@ -293,9 +310,15 @@ public class EscapeGame {
         else if(!hero.isOperational()){
             System.out.println("Dein Hero braucht Verschnaufpause");
         }
+        else if(hero.getGameRound() == 24 && hero.hasAllSignatures() == true) { //Ausnahmefall (selten)
+            System.out.println();
+            System.out.println("### Alle DozentenInnen haben bereits unterschrieben. Du kannst jetzt Prof. Majunke besuchen ###");
+            System.out.println();
+            visitMajunke();
+        }
         else {
             System.out.println("GAME OVER!"); 
-            loseBecauseTimeIsUp(); // damit Runde 24 spielbar bleibt
+            loseBecauseTimeIsUp(); 
         }
     }
 
@@ -432,16 +455,16 @@ public class EscapeGame {
         System.out.print("Deine Antwort (1-4): ");
         String input = EscapeApp.readUserInput();
 
-        switch (input) {
-            case "1": return 1;
-            case "2": return 2;
-            case "3": return 3;
-            case "4": return 4;
-            default:
+            switch (input) {
+                case "1": return 1;
+                case "2": return 2;
+                case "3": return 3;
+                case "4": return 4;
+                default:
                 System.out.println("Bitte gib 1, 2, 3 oder 4 ein.");
+            }
         }
     }
-}
 
     private void initMajuntkeQuestions() {
         majuntkeQuestions[0] = "Welche Kontrollstruktur nutzt man, um Code mehrfach auszuführen?";
