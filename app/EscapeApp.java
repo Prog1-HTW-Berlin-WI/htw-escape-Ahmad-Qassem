@@ -34,7 +34,10 @@ public class EscapeApp {
 
         System.out.println("Thank you for playing. Goodbye!");
     }
-
+    /**
+     * Zentrale Schleife der App.
+     * Zeigt immer wieder das Hauptmenü, liest die Eingabe und führt die passende Aktion aus.
+     */
     private void runApp() {
         while (appRunning) {
             showMainMenu();
@@ -46,6 +49,7 @@ public class EscapeApp {
 
     /**
      * Gibt das Hauptmenü in der Konsole aus.
+     * Optionen werden nur angezeigt, wenn sie wirklich verfuegbar sind
      */
     private void showMainMenu() {
         System.out.println("You're in the main menu");

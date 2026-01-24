@@ -2,7 +2,11 @@ package model;
 import java.io.Serializable;
 
 /**
- * @author Qassem Ahmad
+ * Ein Raum an der HTW.
+ * Hat eine Kennung, eine Beschreibung und optional eine Dozentin oder einen Dozenten.
+ *
+ * @author Ahmad Qassem
+ * @author Luca Jan Relic
  */
 public class HTWRoom implements Serializable {
 
@@ -67,12 +71,15 @@ public class HTWRoom implements Serializable {
     public boolean hasLecturer() {
         return lecturer != null;
     }
+
     public boolean lecturerHasSigned() {
         return lecturer.hasSigned();
     }
+
     public boolean gotVisited() {
         return visited;
     }
+    
     public void beenVisited() {
         this.visited = true;
     }

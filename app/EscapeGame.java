@@ -64,40 +64,41 @@ public class EscapeGame implements Serializable {
         this.rooms[23] = new HTWRoom("A231","Mehrzwecksunterrichtsraum",null);
 
         this.smallRestUsedThisRound = false;
+        
         initMajuntkeQuestions();
     }
-    /**
-    * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
-    * @return Spielzustand
-    */
+/**
+ * lässt von außerhalb der Klasse feststellen, ob das Spiel läuft.
+ * @return Spielzustand
+ */
     public boolean isGameRunning() {
         return gameRunning;
     }
-    /**
-    * lässt Spielzustand von außerhalb der Klasse ändern
-     * @param gameRunning, gibt den neuen Spielzustand zurück.
-    */
+/**
+ * lässt Spielzustand von außerhalb der Klasse ändern
+ * @param gameRunning, gibt den neuen Spielzustand zurück.
+ */
     public void setGameRunning(boolean gameRunning) {
         this.gameRunning = gameRunning;
     }
-    /**
-    * lässt von außerhalb der Klasse feststellen, ob das Spiel beendet ist.
-    * @return gibt den Spielendestatus zurück.
-    */
+/**
+ * lässt von außerhalb der Klasse feststellen, ob das Spiel beendet ist.
+ * @return gibt den Spielendestatus zurück.
+ */
     public boolean isGameFinished() {
         return gameFinished;
     }
-    /**
-    * lässt Spielendestatus von außerhalb der Klasse ändern.
-    * @param gameFinished, aktualiesiert den Spielendestatus.
-    */
+/**
+ * lässt Spielendestatus von außerhalb der Klasse ändern.
+ * @param gameFinished, aktualiesiert den Spielendestatus.
+ */
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
     /**
     * setzt gameRunning auf true und startet das Mainmenu
     * gibt den Beginnstatus auf der Konsole aus.
-    */
+     */
     public void run() {
         gameRunning = true;
 
@@ -111,9 +112,11 @@ public class EscapeGame implements Serializable {
         }
         System.out.println("The game has started."); //kann raus
     }
+
     /**
      * zeigt das Mainmenu auf der Konsole
      */
+
     private void showGameMenu() {
         System.out.println("Spielmenu");
         System.out.println("(1) Hochschule erkunden");
@@ -124,6 +127,7 @@ public class EscapeGame implements Serializable {
         System.out.print("Bitte Zahl zwischen 1 und 5 eingeben: ");
         System.out.println();
     }
+
     /**
      * verarbeitet die Auswahl des Spielers
      * @param input die Eingabe des Spielers im Scanner
@@ -162,10 +166,10 @@ public class EscapeGame implements Serializable {
         }
     }
     
-    /**
-     * liest den Wert von Hero.
-    * @return gibt den Wert zurück.
-    */
+/**
+ * liest den Wert von Hero.
+ * @return gibt den Wert zurück.
+ */
     public Hero getHero() {
         return hero;
     }
@@ -263,11 +267,11 @@ public class EscapeGame implements Serializable {
                     if (rooms[i].gotVisited() == false) {
                         System.out.println();
                         System.out.println("Du betritts " + rooms[i].getIdentifier()+ ", " + rooms[i].getDescription() + ", aber...");
-                        System.out.println();   
+                        System.out.println();
 
                         if (alienTyp < 0.4) {       
-                            System.out.println("Ein lebendes Wesen!");
-                            System.out.println();
+                        System.out.println("Ein lebendes Wesen!");
+                        System.out.println();
                             System.out.println("Es scheint friedlich zu sein ");
                             System.out.println();
                             System.out.println(friendly.getName() + ": " + friendly.getGreeting());
@@ -430,6 +434,12 @@ public class EscapeGame implements Serializable {
         return askMajuntkeQuestion(index);
     }
 
+    /**
+     * Stellt eine Fragen und wertet Antwort aus.
+     *
+     * @param index Index der Frage
+     * @return true, wenn richtig geantwortet wurde
+     */
     private boolean askMajuntkeQuestion(int index) {
         System.out.println(majuntkeQuestions[index]);
         System.out.println();
@@ -450,22 +460,29 @@ public class EscapeGame implements Serializable {
         return false;
     }
 
+    /**
+     * Liest eine gültige Auswahl zwischen 1 und 4 aus
+     *
+     * @return 1 bis 4
+     */
     private int readChoice1To4() {
     while (true) {
         System.out.print("Deine Antwort (1-4): ");
         String input = EscapeApp.readUserInput();
 
-            switch (input) {
-                case "1": return 1;
-                case "2": return 2;
-                case "3": return 3;
-                case "4": return 4;
-                default:
+        switch (input) {
+            case "1": return 1;
+            case "2": return 2;
+            case "3": return 3;
+            case "4": return 4;
+            default:
                 System.out.println("Bitte gib 1, 2, 3 oder 4 ein.");
-            }
         }
     }
-
+}
+    /**
+     * Legt die Fragen und Antwortmöglichkeiten fest.
+     */
     private void initMajuntkeQuestions() {
         majuntkeQuestions[0] = "Welche Kontrollstruktur nutzt man, um Code mehrfach auszuführen?";
         majuntkeAnswers[0][0] = "if";
@@ -489,7 +506,9 @@ public class EscapeGame implements Serializable {
         majuntkeCorrectAnswer[2] = 2;
     }
 
-
+    /**
+     * Spiel gewonnen.
+     */
     private void winGame() {
         System.out.println("Herzlichen Glückwunsch! Du hast es geschafft, rechtzeitig zu entkommen.");
         System.out.println("Professorin Majuntke ist beeindruckt von deinem Mut und deiner Entschlossenheit.");
@@ -497,7 +516,9 @@ public class EscapeGame implements Serializable {
         gameFinished = true;
         gameRunning = false;
     }
-
+    /**
+     * Spiel verloren, weil die Zeit abgelaufen ist.
+     */
     private void loseBecauseTimeIsUp() {
         System.out.println("Die Zeit ist abgelaufen! Du hast es nicht geschafft, rechtzeitig zu entkommen.");
         System.out.println("Professorin Majuntke fliegt davon. Was mit der HTW passiert, bleibt ungewiss...");

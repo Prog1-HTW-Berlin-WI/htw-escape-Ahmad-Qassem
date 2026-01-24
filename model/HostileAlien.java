@@ -1,7 +1,11 @@
 package model;
 
 /**
- * Feindliches Alien mit einfachem Angriff.
+ * Feindliches Alien.
+ * Hat einen zufälligen Angriff.
+ *
+ * @author Ahmad Qassem
+ * @author Luca Jan Relic
  */
 public class HostileAlien extends Alien {
 

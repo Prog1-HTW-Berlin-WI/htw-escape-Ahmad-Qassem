@@ -1,6 +1,8 @@
 package model;
 import java.io.Serializable;
 /**
+ * Basisklasse fuer alle Aliens.
+ * Ein Alien hat Namen, Lebenspunkte, einen Gruss und ist entweder friedlich oder feindlich.
  * @author Qassem Ahmad
  */
 
@@ -22,12 +24,21 @@ public abstract class Alien implements Serializable {
         this.greeting = greeting;
     }
 
+    /**
+     * Zieht Lebenspunkte ab.
+     * Unter 0 geht nicht.
+     *
+     * @param amount Schaden
+     */
     public void takeDamage(int amount) {
         int damage = Math.max(0, amount);
         lifePoints = Math.max(0, lifePoints - damage);
         System.out.println(name + " erleidet " + damage + " Schaden. Restliche LP: " + lifePoints);
     }
 
+    /**
+     * @return true, wenn das Alien keine Lebenspunkte mehr hat
+     */
     public boolean isDefeated() {
         return lifePoints <= 0;
     }

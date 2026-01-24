@@ -1,7 +1,11 @@
 package model;
 
 /**
- * Freundliches Alien, greift nicht an.
+ * Friedliches Alien.
+ * Greift nicht an und macht 0 Schaden.
+ *
+ * @author Ahmad Qassem
+ * @author Luca Jan Relic
  */
 public class FriendlyAlien extends Alien {
 
