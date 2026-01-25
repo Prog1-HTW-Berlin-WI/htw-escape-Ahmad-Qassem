@@ -10,6 +10,7 @@ import model.Lecturer;
  * Spezifikation der relevanten Objekten für das Escape Spiel.
  * Diese Klasse steuert das Spiel und kontrolliert den Zustand des Spiels.
  * @author Qassem Ahmad
+ * @author Luca Jan Relic
  */
 
 public class EscapeGame implements Serializable {

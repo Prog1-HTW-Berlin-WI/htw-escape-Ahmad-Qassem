@@ -11,7 +11,7 @@ import model.Hero;
  * Einstiegspunkt der Konsolenanwendung für das Escape Spiel.
  * Diese Klasse zeigt das Hauptmenü an, liest Eingaben ein und startet Aktionen
  * wie Spielstart oder Laden und Speichern.
- * 
+ * @author Qassem Ahmad
  * @author Luca Relic
  */
 public class EscapeApp {
