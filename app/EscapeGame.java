@@ -148,6 +148,9 @@ public class EscapeGame implements Serializable {
                 System.out.println("Erfahrungspunkte: " + hero.getExperiencePoints());
                 System.out.println("Basicdamage: " + hero.getDamage());
                 System.out.println("Gameround: " + hero.getGameRound() + "/24");
+                System.out.println();
+                System.out.println("Unterschriften:");
+                hero.getLaufzettel();
                 break;
             case "3":
                 System.out.println("Laufzettel:");

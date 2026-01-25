@@ -4,6 +4,7 @@ import java.io.Serializable;
  * Basisklasse fuer alle Aliens.
  * Ein Alien hat Namen, Lebenspunkte, einen Gruss und ist entweder friedlich oder feindlich.
  * @author Qassem Ahmad
+ * @author Luca Jan Relic
  */
 
 public abstract class Alien implements Serializable {
@@ -16,7 +17,14 @@ public abstract class Alien implements Serializable {
     private int lifePoints;
     private final boolean friendly;
     private final String greeting;
-
+    /**
+     * Erstellt ein neues Alien.
+     *
+     * @param name Name des Aliens
+     * @param lifePoints Lebenspunkte des Aliens
+     * @param friendly true, wenn das Alien friedlich ist
+     * @param greeting Gruß des Aliens
+     */
     public Alien(String name, int lifePoints, boolean friendly, String greeting) {
         this.name = name;
         this.lifePoints = Math.max(0, lifePoints);
@@ -53,10 +61,16 @@ public abstract class Alien implements Serializable {
         return lifePoints;
     }
 
+    /**
+     * @return true, wenn das Alien friedlich ist
+     */
     public boolean isFriendly() {
         return friendly;
     }
 
+    /**
+     * @return Begrüßung des Aliens
+     */
     public String getGreeting() {
         return greeting;
     }

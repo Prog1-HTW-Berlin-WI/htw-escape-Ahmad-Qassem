@@ -8,11 +8,18 @@ package model;
  * @author Luca Jan Relic
  */
 public class FriendlyAlien extends Alien {
-
+    /**
+     * Erstellt ein festes friedliches Alien.
+     * Dieses Alien greift nicht an.
+     */
     public FriendlyAlien() {
         super("Sternen Schnecke", 8, true, "Das Alien winkt dir freundlich zu.");
     }
-
+    /**
+     * Friedliches Alien macht keinen Schaden.
+     *
+     * @return 0
+     */
     @Override
     public int attack() {
         return 0;

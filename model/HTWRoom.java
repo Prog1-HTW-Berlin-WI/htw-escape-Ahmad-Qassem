@@ -53,6 +53,9 @@ public class HTWRoom implements Serializable {
     public Lecturer getLecturer() {
         return lecturer;
     }
+    /**
+     * @return Name des Lecturers im Raum
+     */
     public String getLecturerName() {
         return lecturer.getName();
     }
@@ -71,7 +74,9 @@ public class HTWRoom implements Serializable {
     public boolean hasLecturer() {
         return lecturer != null;
     }
-
+    /**
+     * @return true, wenn der Lecturer im Raum bereits unterschrieben hat
+     */
     public boolean lecturerHasSigned() {
         return lecturer.hasSigned();
     }
@@ -79,7 +84,9 @@ public class HTWRoom implements Serializable {
     public boolean gotVisited() {
         return visited;
     }
-    
+    /**
+     * Markiert den Raum als besucht.
+     */
     public void beenVisited() {
         this.visited = true;
     }
