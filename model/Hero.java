@@ -17,7 +17,12 @@ public class Hero implements Serializable {
     private int experiencePoints;
     private Lecturer[] signedExerciseLeaders;
     private int gameRound;
-    
+
+    /**
+     * Erstellt einen neuen Hero.
+     *
+     * @param name Startname des Heros
+     */
     public Hero(String name) {
         this.name = name;
         this.healthPoints = MAX_HP;
@@ -63,7 +68,9 @@ public class Hero implements Serializable {
             System.out.println(name + " erleidet " + amount + " Schaden. Restliche LP: " + healthPoints);
             }
     }
-
+    /**
+     * @return true, wenn der Hero noch Lebenspunkte hat
+     */
     public boolean isOperational() {
         return healthPoints > 0;
     }

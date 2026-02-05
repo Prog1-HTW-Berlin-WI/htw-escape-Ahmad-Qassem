@@ -3,7 +3,11 @@ package model;
 import java.io.Serializable;
 
 /**
- * @author Qassem Ahmad
+ * Eine Dozentin oder ein Dozent.
+ * Kann genau einmal unterschreiben.
+ *
+ * @author Ahmad Qassem
+ * @author Luca Jan Relic
  */
 public class Lecturer implements Serializable {
 
