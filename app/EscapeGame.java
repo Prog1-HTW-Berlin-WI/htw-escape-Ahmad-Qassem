@@ -213,8 +213,9 @@ public class EscapeGame implements Serializable {
             return;
 
         default:
-            System.out.println("Unzulaessige Eingabe.");
+            System.out.println("Unzulaessige Eingabe. Bitte eine Zahl zwischen 1 - 3 eingeben");
             System.out.println();
+            doRest();
             
         }
     }
@@ -273,7 +274,7 @@ public class EscapeGame implements Serializable {
                             System.out.println(friendly.getName() + ": " + friendly.getGreeting());
                         }
                       
-                        else if (!hostile.isDefeated()) {    
+                        else if (!hostile.isDefeated()) {    //die Bedingung kann weg?
                             System.out.println("Ein lebendes Wesen!");
                             System.out.println();
                             System.out.println("VORSICHT!! Es scheint aggresive zu sein!! ");
@@ -331,7 +332,7 @@ public class EscapeGame implements Serializable {
         System.out.println(" 2) Fliehen");
 
         String choice = EscapeApp.readUserInput();
-
+        
         switch (choice) {
             case "1":
                 while (hero.isOperational() && !hostile.isDefeated()) {
@@ -381,8 +382,11 @@ public class EscapeGame implements Serializable {
                     }
                         return;
             default:
-                System.out.println("Unzulässige Eingabe");
+                System.out.println("Unzulässige Eingabe, bitte 1 oder 2 eingeben");
                 System.out.println();
+                fightOrFlee();
+
+                
                 
         }
 
